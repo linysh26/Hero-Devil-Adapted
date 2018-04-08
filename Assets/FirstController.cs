@@ -1,17 +1,49 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+
+
+/**
+ * Since I was going to let the very object to care about its own deal, so I let the object's controller communicate with the 
+ * 
+ * action manager instead dealing cases in the SceneController
+ * */
+
+
+
+
+
 public class FirstController : MonoBehaviour, SceneController, user_action {
 
 	Director director;
 
-	coast_action_controller[] coasts;
-	character_action_controller[] characters;
-	boat_action_controller boat;
+	public Coast[] coasts;
+	public Character[] characters;
+	public Boat boat;
 	GameObject water_surface;
 
-	bool game;
+	public bool game;
 	bool result;
+
+	int current_coast;
+
+	public int getCurrentCoast(){
+		return current_coast;
+	}
+
+	public void setCurrentCoast(int current_coast){
+		this.current_coast = current_coast;
+	}
+
+	public int findCharacterNumber(GameObject character){
+		for (int i = 0; i < 6; i++) {
+			if (characters [i].getCharacter () == character) {
+				return i;
+			}
+		}
+		return -1;
+	}
+
 
 	void Awake(){
 		director = Director.getInstance ();
@@ -39,25 +71,27 @@ public class FirstController : MonoBehaviour, SceneController, user_action {
 
 	public void LoadResources(){
 		Debug.Log ("load resources");
-		water_surface = Instantiate (Resources.Load ("water_surface"), new Vector3(-1,0, -1), Quaternion.identity) as GameObject;
-		coasts = new coast_action_controller[2];
-		coasts [0] = new coast_action_controller (new Vector3 (-6, 0, 0), 0);
-		coasts [1] = new coast_action_controller (new Vector3 (6, 0, 0), 1);
-		boat = new boat_action_controller (coasts);
-		characters = new character_action_controller[6];
+		current_coast = 0;
+		water_surface = Instantiate (Resources.Load ("water_surface"), new Vector3(-1, 0, -1), Quaternion.identity) as GameObject;
+		coasts = new Coast[2];
+		coasts [0] = new Coast(new Vector3 (-6, 0, 0), 0);
+		coasts [1] = new Coast(new Vector3 (6, 0, 0), 1);
+		boat = new Boat ();
+		characters = new Character[6];
 		for (int i = 0; i < 6; i++) {
-			characters [i] = new character_action_controller (boat, i % 2);
+			characters [i] = new Character(i % 2, i);
 			coasts [i%2].getOnCoast (characters [i]);
 		}
 	}
 	public void Restart(){
+		current_coast = 0;
 		game = false;
 		coasts [0].Restart ();
 		coasts [1].Restart ();
 		boat.Restart ();
 		for (int i = 0; i < 6; i++) {
 			coasts [i%2].getOnCoast (characters [i]);
+			characters [i].setOnBoat (false);
 		}
 	}
-
 }
