@@ -22,7 +22,7 @@ public class Character: MonoBehaviour{
 		this.character_type = type;
 		this.coast_number = type;
 		this.character_number = character_number;
-		this.character = Instantiate (Resources.Load (type == 0 ? "devil" : "hero")) as GameObject;
+		this.character = Instantiate (Resources.Load (type == 0 ? "devil" : "hero"),new Vector3(0, 0, 0), Quaternion.AngleAxis(90, Vector3.up)) as GameObject;
 		isMoving = false;
 		isOnBoat = false;
 	}

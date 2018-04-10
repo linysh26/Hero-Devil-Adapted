@@ -9,8 +9,8 @@ public class ActionGroup : ActionManager, ActionCallBack1{
 	// Use this for initialization
 	void Start () {
 		scene_controller = (FirstController)Director.getInstance ().currentSceneController;
-		moveToLeft = MoveToAction.GetAction (new Vector3 (-2, 0, 0), 1);
-		moveToRight = MoveToAction.GetAction (new Vector3 (2, 0, 0), 1);
+		moveToLeft = MoveToAction.GetAction (new Vector3 (-1, 0, 0), 1);
+		moveToRight = MoveToAction.GetAction (new Vector3 ((float)1.5, 0, 0), 1);
 		teleportTo = TeleportAction.GetAction (new Vector3 (0, 0, 0));
 	}
 	
@@ -23,11 +23,11 @@ public class ActionGroup : ActionManager, ActionCallBack1{
 				GameObject action_taker = hit.collider.gameObject;
 				Debug.Log (action_taker.name [0]);
 				switch (action_taker.name [0]) {
-				case 'C':
-				case 'S':
+				case 'd':
+				case 'h':
 					if (scene_controller.boat.getStatus ())
 						break;
-					int ch_num = scene_controller.findCharacterNumber (action_taker.transform.parent.gameObject);
+					int ch_num = scene_controller.findCharacterNumber (action_taker);
 					int c_num = scene_controller.getCurrentCoast ();
 					if (scene_controller.characters[ch_num].getOnBoat ()) {
 						scene_controller.boat.putCharacter (scene_controller.characters [ch_num]);
@@ -50,7 +50,7 @@ public class ActionGroup : ActionManager, ActionCallBack1{
 						}
 					}
 					break;
-				case 'b':
+				case 'C':
 					int current_coast = scene_controller.getCurrentCoast ();
 					if (!scene_controller.boat.getStatus()) {
 						Debug.Log ("出航！大海贼时代！");

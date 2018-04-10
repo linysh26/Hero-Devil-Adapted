@@ -18,6 +18,8 @@ public class MoveToAction : Action{
 	public override void Start () {
 		scene_controller = (FirstController)Director.getInstance ().currentSceneController;
 		scene_controller.boat.setStatus (true);
+		Animator anima = gameobject.GetComponent<Animator> ();
+		anima.SetInteger ("AnimState", 0);
 	}
 	
 	// Update is called once per frame

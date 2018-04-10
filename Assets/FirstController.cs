@@ -13,7 +13,7 @@ using System.Collections;
 
 
 
-public class FirstController : MonoBehaviour, SceneController, user_action {
+public class FirstController : MonoBehaviour, SceneController{
 
 	Director director;
 
@@ -72,7 +72,7 @@ public class FirstController : MonoBehaviour, SceneController, user_action {
 	public void LoadResources(){
 		Debug.Log ("load resources");
 		current_coast = 0;
-		water_surface = Instantiate (Resources.Load ("water_surface"), new Vector3(-1, 0, -1), Quaternion.identity) as GameObject;
+		water_surface = Instantiate (Resources.Load ("water_surface"), new Vector3(-100, 0, -100), Quaternion.identity) as GameObject;
 		coasts = new Coast[2];
 		coasts [0] = new Coast(new Vector3 (-6, 0, 0), 0);
 		coasts [1] = new Coast(new Vector3 (6, 0, 0), 1);

@@ -17,7 +17,7 @@ public class Boat: MonoBehaviour {
 	int[] seats_status;
 
 	public Boat () {
-		boat = Instantiate (Resources.Load ("boat"), new Vector3 (-2, 0, 0), Quaternion.identity) as GameObject;
+		boat = Instantiate (Resources.Load ("FreeBarrowsWagons/prefabs/wagon2"), new Vector3 ((float)-0.5, 0, 0), Quaternion.identity) as GameObject;
 		isMoving = false;
 		rest = 2;
 		speed = 2;
@@ -52,7 +52,7 @@ public class Boat: MonoBehaviour {
 		if (isMoving)
 			return;
 		isMoving = true;
-		character_action_controller.setIsClickAvailable (false);
+		Character.setIsClickAvailable (false);
 	}
 
 	public void putCharacter(Character character){

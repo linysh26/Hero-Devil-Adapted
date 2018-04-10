@@ -24,7 +24,7 @@ public class Coast : MonoBehaviour {
 		seats_status = new int[6];
 		seats = new Vector3[6];
 		for (int i = 0; i < 6; i++) {
-			seats [i] = new Vector3 (position.x + (float)(i - 2.5), 1, 0);
+			seats [i] = new Vector3 (position.x + (float)(i - 2.5), (float)1.25, 0);
 			seats_status [i] = 0;
 		}
 	}
